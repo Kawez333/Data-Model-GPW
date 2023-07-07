@@ -2,6 +2,9 @@
 
 ![Nowy projekt (1)](https://github.com/Kawez333/Data-Model-GPW/assets/122210094/a71164be-002c-4c1e-9556-f7445b7a273b)
 <center>Ingest - Transform - Load - Visualization</center> 
+<div style="text-align:center">
+Ingest - Transform - Load - Visualization
+</div>
 I would like to present my data model project, which briefly ingests data from a website, transforms it, loads it into a data warehouse, and presents it visually. I started working on this project a month ago, and currently, the entire data flow is working correctly. I will continue developing and improving this project. Let me describe step by step how it works:
 
 1. The whole process starts on a website https://www.wnp.pl/finanse/gpw/ where the stock prices of Polish companies are listed in a table. As a fan of trading and an active investor, I chose this dataset as a data source.
