@@ -23,6 +23,8 @@ I would like to present my data model project, which briefly ingests data from a
 
 6. The final element is the visualization of the collected data using Power BI dashboards. Power BI connects to Snowflake, retrieves the data, and presents it using charts and matrices. For example, it shows the companies with the highest trading volume, the top 5 most advanced companies, and more.
 
-![image](https://github.com/Kawez333/Data-Model-GPW/assets/122210094/1cecd38f-fbeb-443d-ab72-3c0dec76a2c4)
+![image](https://github.com/Kawez333/Data-Model-GPW/assets/122210094/93b0cbad-2754-4ba0-9bf3-b0d7a8a2d442)
+
+
 
 Creating this model has taught me a lot. I still have many ideas on how to expand and improve this project, such as using Apache Airflow for scheduling, deploying the Python script in Azure Functions or Docker, and using Snowflake streams to track data changes and capture them using CDC (change data capture). The longer I work on this project, the more ideas I have.
