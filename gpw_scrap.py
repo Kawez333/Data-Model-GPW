@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 
-# Funkcja scrapująca dane i zapisująca do pliku CSV
+# Function for scraping data and saving it to a CSV file
 def scrape_and_save_data():
     url = "https://www.wnp.pl/finanse/gpw/"
     response = requests.get(url)
@@ -13,14 +13,14 @@ def scrape_and_save_data():
 
     table = soup.find("table", class_="table-3")
 
-    # Pobranie nagłówków tabeli
+    # Get table headers
     headers = []
     header_row = table.find("thead").find("tr")
     header_cells = header_row.find_all("th")
     for cell in header_cells:
         headers.append(cell.text.strip())
 
-    # Pobranie danych z wierszy tabeli
+    # Get data from table rows
     data_rows = table.find("tbody").find_all("tr")
     rows_data = []
     for row in data_rows:
@@ -30,41 +30,41 @@ def scrape_and_save_data():
             row_data.append(cell.text.strip())
         rows_data.append(row_data)
 
-    # Zapis danych do pliku CSV
-    filename = "wyniki.csv"
+    # Save data to a CSV file
+    filename = "results.csv"
     with open(filename, "w", newline="", encoding="utf-8-sig") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
         writer.writerows(rows_data)
 
-    print(f"Dane zostały zapisane do pliku {filename}")
+    print(f"Data has been saved to the file {filename}")
 
-# Wywołanie funkcji scrapującej i zapisującej dane
+# Call the function to scrape and save the data
 scrape_and_save_data()
 
-# Konfiguracja połączenia z kontem Storage Blob
+# Storage Blob account connection configuration
 account_name = 'gpwblob'
 account_key = '*******************************'
 container_name = 'gpwcont'
-blob_name = 'wyniki.csv'
+blob_name = 'results.csv'
 
-# Utworzenie klienta BlobServiceClient
+# Create BlobServiceClient
 blob_service_client = BlobServiceClient(account_url=f"https://{account_name}.blob.core.windows.net", credential=account_key)
 
-# Utworzenie kontenera (jeśli nie istnieje)
+# Create container if it doesn't exist
 container_client = blob_service_client.get_container_client(container_name)
 try:
     container_client.create_container()
-    print(f"Kontener '{container_name}' został utworzony.")
+    print(f"Container '{container_name}' has been created.")
 except Exception as e:
-    print(f"Kontener '{container_name}' już istnieje.")
+    print(f"Container '{container_name}' already exists.")
 
-# Ścieżka do pliku CSV
-csv_file_path = os.path.join(os.getcwd(), "wyniki.csv")
+# Path to the CSV file
+csv_file_path = os.path.join(os.getcwd(), "results.csv")
 
-# Wrzucanie pliku do kontenera Blob Storage
+# Upload the file to Blob Storage container
 blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
 with open(csv_file_path, "rb") as data:
     blob_client.upload_blob(data, overwrite=True)
 
-print("Plik został wrzucony do kontenera Blob Storage.")
+print("File has been uploaded to the Blob Storage container.")
